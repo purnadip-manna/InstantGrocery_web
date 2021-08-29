@@ -1,0 +1,9 @@
+// Item Details
+{
+	"_id": 1,
+	"name": "rice_basmati",
+	"tag": "rice",
+	"price": 140,
+	"avialable": 40,
+	"unit": "K"
+}

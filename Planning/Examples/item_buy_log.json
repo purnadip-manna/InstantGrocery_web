@@ -1,0 +1,13 @@
+// Item Buy Log
+{
+	"_id": 1,
+	"items": [
+		{
+			"item_id": 1,
+			"item_name": "rice_basmati"
+			"Quantity": 2,
+			"price": 280
+		}
+	],
+	"date": "29/08/2021"
+}

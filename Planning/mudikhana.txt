@@ -137,6 +137,12 @@ Generating_pdf
 
 
 
+Profile Tab:----------------
+1. All profile details
+2. Edit option
+3. Current Plan
+4. Upgrade Plan (3 month/999 Rs, 1 yr/ 3999 Rs)
+
 
 
 

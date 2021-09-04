@@ -1,3 +1,18 @@
-.jumbotron-fluid {
-  padding-left: -5px !important;
+.jumbotron {
+    padding: 1rem;
+    margin-bottom: 2rem;
+
+}
+
+#banner{
+    background-color: #e9ecef;
+}
+
+#shopLogo{
+    width: 8.5rem;
+    display: block;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2px;
 }

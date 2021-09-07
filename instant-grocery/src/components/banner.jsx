@@ -22,7 +22,10 @@ class Banner extends Component {
                         </div>
                     </div>
                     <div className="col-sm-2 order-sm-3" >
-                        <p id="timeDiv">{this.state.time}</p>
+                        <p id="timeDiv">
+                            07-09-2021 <br/>
+                            {this.state.time}
+                        </p>
                     </div>
                 </div>
             </React.Fragment>

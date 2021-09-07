@@ -3,8 +3,8 @@
 // admin session log
 {
 	"admin_id": 1,
-	"jwt_access_token": "eyjsn.kjhfiduc.zxcnj"
-	"jwt_refresh_token": "eyjsn.kjhfiduc.zxcnj"
+	"jwt_access_token": "eyjsn.kjhfiduc.zxcnj",
+	"jwt_refresh_token": "eyjsn.kjhfiduc.zxcnj",
 	"session_started": "07:03:46",
 	"session_ended": "01:40:05",
 	"date": "29/08/2021"

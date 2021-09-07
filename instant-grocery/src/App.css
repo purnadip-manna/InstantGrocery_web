@@ -24,3 +24,15 @@
     padding-top: 1rem;
     font-weight: 500;
 }
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 1rem 1.25rem;
+    border-color: white;
+}
+
+.list-group{
+    border-right: 2px solid rgba(0, 0, 0, 0.281);
+    height: 50vh;
+}

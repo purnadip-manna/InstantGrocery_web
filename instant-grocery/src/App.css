@@ -17,6 +17,7 @@
     padding: 2px;
 }
 
+
 #timeDiv{
     text-align: right;
     padding-right: 1rem;
@@ -24,9 +25,22 @@
     font-weight: 500;
 }
 
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 1rem 1.25rem;
+    border-color: white;
+}
+
+.list-group{
+    border-right: 2px solid rgba(0, 0, 0, 0.281);
+    border-radius: 0px !important;
+    height: 50vh;
+}
+
 #footer {
     bottom: 0;
-    /* position: fixed; */
+    border-top: 2px solid rgba(0, 0, 0, 0.281);
     width: auto;
     margin: auto;
 }

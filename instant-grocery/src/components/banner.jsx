@@ -3,13 +3,30 @@ import React, { Component } from 'react';
 class Banner extends Component {
     constructor(props){
         super(props);
-        this.state={time:''};
-        this.getTimeNow=this.getTimeNow.bind(this);
+        this.state={date: new Date()};
     }
+
+    componentDidMount() {
+        this.timerID = setInterval(
+          () => this.tick(),
+          1000
+        );
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.timerID);
+    }
+
+    tick(){
+        this.setState({
+            date:new Date()
+        });
+    }
+
     render() { 
         return (
             <React.Fragment>
-                <div className="row" id="banner" onLoad={this.getTimeNow}>
+                <div className="row" id="banner">
                     <div className="col-sm-2 order-sm-1">
                         <img src="https://i.pinimg.com/originals/5d/26/a1/5d26a173f443cbd190e34481438d474b.png" id="shopLogo" alt="Logo"></img>
                     </div>
@@ -23,8 +40,8 @@ class Banner extends Component {
                     </div>
                     <div className="col-sm-2 order-sm-3" >
                         <p id="timeDiv">
-                            07-09-2021 <br/>
-                            {this.state.time}
+                            <strong>{this.state.date.toLocaleTimeString()} <br/></strong>
+                            {this.state.date.toDateString()}<br/>
                         </p>
                     </div>
                 </div>
@@ -33,33 +50,7 @@ class Banner extends Component {
         
     }
     
-    getTimeNow(e){
-        var date = new Date();
-        var h = date.getHours(); // 0 - 23
-        var m = date.getMinutes(); // 0 - 59
-        var s = date.getSeconds(); // 0 - 59
-        var session = "AM";
-        
-        if(h === 0){
-            h = 12;
-        }
-        
-        if(h > 12){
-            h = h - 12;
-            session = "PM";
-        }
-        
-        h = (h < 10) ? "0" + h : h;
-        m = (m < 10) ? "0" + m : m;
-        s = (s < 10) ? "0" + s : s;
-        
-        var times = h + ":" + m + ":" + s + " " + session;
-        
-        
-        this.setState({time:times});
-        setTimeout(this.getTimeNow, 1000);
-        
-    }
+    
 }
 
  

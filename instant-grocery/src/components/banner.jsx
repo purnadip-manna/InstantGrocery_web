@@ -6,6 +6,7 @@ class Banner extends Component {
         this.state={time:''};
         this.getTimeNow=this.getTimeNow.bind(this);
     }
+
     render() { 
         return (
             <React.Fragment>

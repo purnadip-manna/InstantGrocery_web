@@ -1,3 +1,14 @@
+
+@use "@material/checkbox";
+@use "@material/icon-button";
+@use "@material/data-table/data-table";
+
+@include checkbox.core-styles;
+@include icon-button.core-styles;
+@include data-table.core-styles;
+@include data-table.theme-baseline;
+
+
 .jumbotron {
     padding: 1rem;
     margin-bottom: 2rem;
@@ -44,3 +55,6 @@
     width: auto;
     margin: auto;
 }
+
+
+

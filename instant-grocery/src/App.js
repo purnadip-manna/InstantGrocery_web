@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Navbar />
-        <Banner shopName="ABC Shop" />
+        <Banner shopName="ABCD Shop" />
         <MainArea />
         <Footer />
       </header>

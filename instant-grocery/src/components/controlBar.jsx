@@ -10,7 +10,7 @@ class ControlBar extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="list-group" id="list-tab" role="tablist">
+                <div className="list-group shadow mb-2" id="list-tab" role="tablist">
                     <a className="list-group-item list-group-item-action active mt-1 mb-1 pt-3 pb-3" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bag-check mb-1 mr-2" viewBox="0 0 16 16">
                             <path fillRule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />

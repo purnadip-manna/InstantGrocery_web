@@ -33,14 +33,30 @@
 }
 
 .list-group{
-    border-right: 2px solid rgba(0, 0, 0, 0.281);
-    border-radius: 0px !important;
-    height: 50vh;
+    height: 60vh;
+}
+
+.list-group-item.active{
+    border-radius: 0px 10px 10px 0px;
+    font-weight: 500;
+    font-size: 20px;
+    transition: 0.3s ease;
 }
 
 #footer {
-    bottom: 0;
-    border-top: 2px solid rgba(0, 0, 0, 0.281);
     width: auto;
     margin: auto;
+}
+
+.shadow{
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+	background: #fff;
+	padding: 30px;
+	width: 100%;
+	max-width: 450px;
+	position: relative;
+	padding: 10px;
+	-webkit-box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
+	box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
 }

@@ -30,7 +30,7 @@ class Banner extends Component {
                     <div className="col-sm-2 order-sm-1">
                         <img src="https://i.pinimg.com/originals/5d/26/a1/5d26a173f443cbd190e34481438d474b.png" id="shopLogo" alt="Logo"></img>
                     </div>
-                    <div className="col-sm-8 order-sm-2">
+                    <div className="col-sm-8 order-sm-2 pl-0">
                         <div className="jumbotron jumbotron-fluid">
                             <div className="container-fluid">
                                 <h1 className="display-4">{this.props.shopName}</h1>

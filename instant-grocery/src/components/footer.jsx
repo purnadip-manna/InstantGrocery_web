@@ -6,6 +6,7 @@ class Footer extends Component {
         return (
             <React.Fragment>
                 <footer id='footer' className="text-center">
+                    <hr/>
                     <div className="container pt-1">
                         <section className="mb-4">
                             {/* Facebook icon  */}

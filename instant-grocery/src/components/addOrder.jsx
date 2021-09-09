@@ -4,6 +4,7 @@ import MUIDataTable from "mui-datatables";
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core'; 
 import Button from "@material-ui/core/Button";
+import ModalOrder from './orderModal';
 
 
 
@@ -63,13 +64,27 @@ class AddOrders extends Component {
                                   </Button>
                             }
                         },
-                    ]};
+                    ],modalShow:false};
         this.LeftmarginSet=this.LeftmarginSet.bind(this);
         this.RightMarginSet=this.RightMarginSet.bind(this);
         this.PrintData=this.PrintData.bind(this);
         this.deleteItemsOrder=this.deleteItemsOrder.bind(this);
+        this.handleFinalOrderItem=this.handleFinalOrderItem.bind(this);
+        this.handleDialog=this.handleDialog.bind(this);
+        this.timeOutId = null;
+
+        // this.handleClickedOutside=this.handleClickedOutside.bind(this);
+        this.onBlurHandler = this.onBlurHandler.bind(this);
+        this.onFocusHandler = this.onFocusHandler.bind(this);
+        // this.toogleContainer=React.createRef();
+
     }
-    
+    // componentDidMount(){
+    //     window.addEventListener("click",this.handleClickedOutside);
+    // }
+    // componentWillUnmount(){
+    //     window.removeEventListener("click",this.handleClickedOutside);
+    // }
     
     LeftmarginSet(val){
         this.setState({leftMargin:val})
@@ -77,6 +92,13 @@ class AddOrders extends Component {
     RightMarginSet(val){
         this.setState({rightMargin:val})
     }
+    //handle the dialoge open and close event
+    handleDialog(){
+        this.setState(currState=>({
+            modalShow : !currState.modalShow
+        }))
+    }
+
     PrintData(ev,val,rowData){
         console.log(rowData);
         this.setState({rowData:rowData});
@@ -86,12 +108,32 @@ class AddOrders extends Component {
         if(this.state.addedItems==true){
             this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
         }
+        this.state.modalShow=true;
     }
+
+    handleFinalOrderItem(val){
+        this.setState({rowData:this.state.rowData.push(val)});
+        this.setState({modalShow:false});
+        console.log(this.state.rowData);
+    }
+
 
     deleteItemsOrder(ev,rowIndex,delRowData){
         this.state.orderedItems.splice(rowIndex,1);
         this.setState({orderedItems:this.state.orderedItems});
-        console.log(rowIndex);
+        // console.log(rowIndex);
+    }
+
+    //after opening the dialog if we clicked out side we have to set the modalShow to false
+    onBlurHandler() {    
+        this.timeOutId = setTimeout(() => {   
+            this.setState({ modalShow: false 
+                 }); 
+        }); 
+    }
+    //when we clicked the button we add a timeOut
+    onFocusHandler() {    
+        clearTimeout(this.timeOutId);  
     }
 
     render() { 
@@ -139,7 +181,7 @@ class AddOrders extends Component {
                 options: {
                   empty: true,
                   customBodyRender: (value, tableMeta, updateValue) =>
-                      <Button variant="outlined" color="secondary" size="small" onClick={(e)=>this.PrintData(e,value,tableMeta.rowData)}>
+                      <Button variant="outlined" color="secondary" size="small"  onClick={(e)=>this.PrintData(e,value,tableMeta.rowData)}>
                         {`Add`}
                       </Button>
                 }
@@ -250,6 +292,18 @@ class AddOrders extends Component {
                         </div>
                         <div className="col-sm-1 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
                     </div>
+                </div>
+                
+                <div ref={this.toogleContainer}
+                onBlur={this.onBlurHandler}          
+                onFocus={this.onFocusHandler}>
+                    {this.state.modalShow ?
+                    <ModalOrder
+                    openEv={this.state.modalShow}
+                    orderData={this.state.rowData}
+                    onFinalOrderChange={this.handleFinalOrderItem}
+                    handleDialog={this.handleDialog}
+                    /> : null}
                 </div>
             </React.Fragment>
         );

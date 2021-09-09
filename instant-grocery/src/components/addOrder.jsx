@@ -45,7 +45,7 @@ class AddOrders extends Component {
                             options: {
                               empty: true,
                               customBodyRender: (value, tableMeta, updateValue) =>
-                                  <Button variant="outlined" color="primary" >
+                                  <Button variant="outlined" color="primary" onClick={(e)=>this.onEdithandle(e,tableMeta.rowIndex,tableMeta.rowData)}>
                                     {`Edit`}
                                   </Button>
                             }
@@ -61,7 +61,7 @@ class AddOrders extends Component {
  
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this); 
-
+        this.onEdithandle=this.onEdithandle.bind(this);
     }
     
     
@@ -107,11 +107,15 @@ class AddOrders extends Component {
         this.state.modalShow=true;
     }
 
-
     deleteItemsOrder(ev,rowIndex,delRowData){
         this.state.orderedItems.splice(rowIndex,1);
         this.setState({orderedItems:this.state.orderedItems});
         // console.log(rowIndex);
+    }
+
+    onEdithandle(ev,rowIndex,delRowData){
+        console.log("edit is happening");
+        this.setState({modalShow:true});
     }
 
     //after opening the dialog if we clicked out side we have to set the modalShow to false

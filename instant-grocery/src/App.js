@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Navbar />
-        <Banner shopName="ABCD Shop" />
+        <Banner shopName="Grocery Store" />
         <MainArea />
         <Footer />
       </header>

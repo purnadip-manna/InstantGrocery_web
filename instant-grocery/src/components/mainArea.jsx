@@ -7,9 +7,9 @@ class MainArea extends Component {
     render() {
         return (
             <div className="container-fluid">
+                <ShowOrders />
                 {/* <AddOrders /> */}
                 {/* <PantryDetails /> */}
-                <ShowOrders />
             </div>
         );
     }

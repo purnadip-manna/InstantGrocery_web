@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core'; 
 import Button from "@material-ui/core/Button";
 import ModalOrder from './orderModal';
-
+import ModalEditOrder from './EditModalOrder';
 
 
 class AddOrders extends Component {
@@ -41,7 +41,7 @@ class AddOrders extends Component {
                             }
                         },
                         {
-                            name: "Action",
+                            name: "Action1",
                             options: {
                               empty: true,
                               customBodyRender: (value, tableMeta, updateValue) =>
@@ -50,7 +50,7 @@ class AddOrders extends Component {
                                   </Button>
                             }
                         },
-                    ],modalShow:false};
+                    ],modalShow:false,editDialog:false,editRowData:{},selectedRow:0};
         this.LeftmarginSet=this.LeftmarginSet.bind(this);
         this.RightMarginSet=this.RightMarginSet.bind(this);
         this.PrintData=this.PrintData.bind(this);
@@ -58,10 +58,13 @@ class AddOrders extends Component {
         this.handleFinalOrderItem=this.handleFinalOrderItem.bind(this);
         this.handleDialog=this.handleDialog.bind(this);
         this.timeOutId = null;
- 
+        this.editTimeOutId=null;
+
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this); 
         this.onEdithandle=this.onEdithandle.bind(this);
+        this.handleEditDialog=this.handleEditDialog.bind(this);
+        this.onFinalOrderEditChange=this.onFinalOrderEditChange.bind(this);
     }
     
     
@@ -77,16 +80,14 @@ class AddOrders extends Component {
             modalShow : !currState.modalShow
         }))
     }
+    handleEditDialog(){
+        this.setState({editDialog:!this.state.editDialog})
+    }
 
     PrintData(ev,val,rowData){
         // console.log(rowData);
         this.setState({rowData:rowData});
-        // const orderdItem=[rowData[0],rowData[1]]
-        // this.state.orderedItems.push(orderdItem);
-        // this.state.addedItems=true;
-        // if(this.state.addedItems==true){
-        //     this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
-        // }
+        
         this.state.modalShow=true;
     }
 
@@ -104,8 +105,23 @@ class AddOrders extends Component {
         this.setState({rowData:this.state.rowData.push(val)});
         this.setState({modalShow:false});
         
-        this.state.modalShow=true;
     }
+
+    onFinalOrderEditChange(value){
+        const am=value[1];
+        const qua=value[2];
+
+        const orderdItem=[value[0],qua,am];
+        const newOrderObj=this.state.orderedItems;
+        newOrderObj[this.state.selectedRow]=orderdItem;
+
+        this.setState({orderedItems:newOrderObj})
+
+       
+
+        this.setState({editDialog:false});
+    }
+
 
     deleteItemsOrder(ev,rowIndex,delRowData){
         this.state.orderedItems.splice(rowIndex,1);
@@ -113,22 +129,33 @@ class AddOrders extends Component {
         // console.log(rowIndex);
     }
 
-    onEdithandle(ev,rowIndex,delRowData){
-        console.log("edit is happening");
-        this.setState({modalShow:true});
+    onEdithandle(ev,rowIndex,RowData){
+        console.log("edit is happening at row: "+rowIndex);
+        this.setState({selectedRow:rowIndex});
+        this.setState({editDialog:true});
+        this.setState({editRowData:RowData})
+        
     }
 
     //after opening the dialog if we clicked out side we have to set the modalShow to false
     onBlurHandler() {    
         this.timeOutId = setTimeout(() => {   
-            this.setState({ modalShow: false 
-                 }); 
+            this.setState({ modalShow: false
+                 });
         }); 
+        // this.editTimeOutId=setTimeout(()=>{
+        //     this.setState({
+        //         editDialog: false 
+        //     })
+        // });
     }
     //when we clicked the button we add a timeOut
     onFocusHandler() {    
         clearTimeout(this.timeOutId);  
+        // clearTimeout(this.editTimeOutId);
     }
+
+    
 
     render() { 
         const columns = [
@@ -288,9 +315,27 @@ class AddOrders extends Component {
                     </div>
                 </div>
                 
-                <div ref={this.toogleContainer}
+
+                
+                <div 
+                onBlur={this.onFocusHandler}          
+                onFocus={this.onBlurHandler}>
+
+                    {this.state.editDialog ? 
+                    <ModalEditOrder
+                    openEv={this.state.editDialog}
+                    eventName={'edit'}
+                    orderData={this.state.editRowData}
+                    onFinalOrderEditChange={this.onFinalOrderEditChange}
+                    handleDialog={this.handleEditDialog}
+                    /> : null}
+
+                </div>
+
+                <div 
                 onBlur={this.onBlurHandler}          
                 onFocus={this.onFocusHandler}>
+
                     {this.state.modalShow ?
                     <ModalOrder
                     openEv={this.state.modalShow}
@@ -299,6 +344,9 @@ class AddOrders extends Component {
                     handleDialog={this.handleDialog}
                     /> : null}
                 </div>
+
+
+
             </React.Fragment>
         );
     }

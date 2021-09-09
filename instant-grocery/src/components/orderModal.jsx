@@ -44,8 +44,8 @@ class ModalOrder extends React.Component {
     
 
     handleSubmit(event){
-        console.log(this.state.quantity);
-        this.props.onFinalOrderChange(this.state.quantity);
+        const newItemList=[this.state.quantity,this.state.value];
+        this.props.onFinalOrderChange(newItemList);
         this.setState({open:false});
     }
 

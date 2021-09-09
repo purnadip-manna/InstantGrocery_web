@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ControlBar from './controlBar';
 import OrderDetail from './order_detail';
 import OrderList from './order_list';
+import AddOrders from './addOrder';
 
 class MainArea extends Component {
     constructor(props) {
@@ -30,6 +31,9 @@ class MainArea extends Component {
                         hideDetails={this.changeState}
                     />
                 </div>
+                {/* <div className="col-sm-10 mr-0 pr-0 ml-0 pl-0 mt-1 mb-1">
+                    <AddOrders/>
+                </div> */}
             </div>
         );
     }

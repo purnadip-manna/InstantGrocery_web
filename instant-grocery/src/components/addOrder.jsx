@@ -4,6 +4,7 @@ import MUIDataTable from "mui-datatables";
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core'; 
 import Button from "@material-ui/core/Button";
+import ModalOrder from './orderModal';
 
 
 
@@ -16,41 +17,17 @@ class AddOrders extends Component {
                     columnsCustomer : [
                         {
                             name: "Items",
-                            options: {
-                              hint: "?",
-                              customBodyRender: val => {
-                                let parentStyle = {
-                                  position: "absolute",
-                                  top: 0,
-                                  right: "1px",
-                                  bottom: 0,
-                                  left: "2px",
-                                  boxSizing: "border-box",
-                                  display: "block",
-                                  width: "100%"
-                                };
-                                let cellStyle = {
-                                  boxSizing: "border-box",
-                                  overflow: "hidden",
-                                  textOverflow: "ellipsis",
-                                  whiteSpace: "nowrap"
-                                };
-                                return (
-                                  <div style={{ position: "relative", height: "20px" }}>
-                                    <div style={parentStyle}>
-                                      <div style={cellStyle}>{val}</div>
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            },
-                            
                         },
                         {
                             name: "Value",
                             options: {
                                 sort: true,
-                                hint: "?",
+                            }
+                        },
+                        {
+                            name: "Quantity",
+                            options: {
+                                sort: true,
                             }
                         },
                         {
@@ -63,11 +40,28 @@ class AddOrders extends Component {
                                   </Button>
                             }
                         },
-                    ]};
+                        {
+                            name: "Action",
+                            options: {
+                              empty: true,
+                              customBodyRender: (value, tableMeta, updateValue) =>
+                                  <Button variant="outlined" color="primary" >
+                                    {`Edit`}
+                                  </Button>
+                            }
+                        },
+                    ],modalShow:false};
         this.LeftmarginSet=this.LeftmarginSet.bind(this);
         this.RightMarginSet=this.RightMarginSet.bind(this);
         this.PrintData=this.PrintData.bind(this);
         this.deleteItemsOrder=this.deleteItemsOrder.bind(this);
+        this.handleFinalOrderItem=this.handleFinalOrderItem.bind(this);
+        this.handleDialog=this.handleDialog.bind(this);
+        this.timeOutId = null;
+ 
+        this.onBlurHandler = this.onBlurHandler.bind(this);
+        this.onFocusHandler = this.onFocusHandler.bind(this); 
+
     }
     
     
@@ -77,21 +71,59 @@ class AddOrders extends Component {
     RightMarginSet(val){
         this.setState({rightMargin:val})
     }
+    //handle the dialoge open and close event
+    handleDialog(){
+        this.setState(currState=>({
+            modalShow : !currState.modalShow
+        }))
+    }
+
     PrintData(ev,val,rowData){
-        console.log(rowData);
+        // console.log(rowData);
         this.setState({rowData:rowData});
-        const orderdItem=[rowData[0],rowData[1]]
+        // const orderdItem=[rowData[0],rowData[1]]
+        // this.state.orderedItems.push(orderdItem);
+        // this.state.addedItems=true;
+        // if(this.state.addedItems==true){
+        //     this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
+        // }
+        this.state.modalShow=true;
+    }
+
+    handleFinalOrderItem(val){
+        // console.log(val);
+        const amount=val[0];
+        const quantity=val[1];
+        
+        const orderdItem=[this.state.rowData[0],quantity,amount];
         this.state.orderedItems.push(orderdItem);
         this.state.addedItems=true;
         if(this.state.addedItems==true){
             this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
         }
+        this.setState({rowData:this.state.rowData.push(val)});
+        this.setState({modalShow:false});
+        
+        this.state.modalShow=true;
     }
+
 
     deleteItemsOrder(ev,rowIndex,delRowData){
         this.state.orderedItems.splice(rowIndex,1);
         this.setState({orderedItems:this.state.orderedItems});
-        console.log(rowIndex);
+        // console.log(rowIndex);
+    }
+
+    //after opening the dialog if we clicked out side we have to set the modalShow to false
+    onBlurHandler() {    
+        this.timeOutId = setTimeout(() => {   
+            this.setState({ modalShow: false 
+                 }); 
+        }); 
+    }
+    //when we clicked the button we add a timeOut
+    onFocusHandler() {    
+        clearTimeout(this.timeOutId);  
     }
 
     render() { 
@@ -139,7 +171,7 @@ class AddOrders extends Component {
                 options: {
                   empty: true,
                   customBodyRender: (value, tableMeta, updateValue) =>
-                      <Button variant="outlined" color="secondary" size="small" onClick={(e)=>this.PrintData(e,value,tableMeta.rowData)}>
+                      <Button variant="outlined" color="secondary" size="small"  onClick={(e)=>this.PrintData(e,value,tableMeta.rowData)}>
                         {`Add`}
                       </Button>
                 }
@@ -165,14 +197,14 @@ class AddOrders extends Component {
             filter: false,
             filterType: "dropdown",
             selectableRows: "none",
+            responsive: 'vertical',
             draggableColumns: {
                 enabled: true
             },
-            responsive: "standard",
+            responsive: 'vertical',
             print:false,
-            responsive: "scroll",
             // selectableRows: true,
-            selectableRows: "none",
+            // selectableRows: "none",
         }
         
         
@@ -250,6 +282,18 @@ class AddOrders extends Component {
                         </div>
                         <div className="col-sm-1 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
                     </div>
+                </div>
+                
+                <div ref={this.toogleContainer}
+                onBlur={this.onBlurHandler}          
+                onFocus={this.onFocusHandler}>
+                    {this.state.modalShow ?
+                    <ModalOrder
+                    openEv={this.state.modalShow}
+                    orderData={this.state.rowData}
+                    onFinalOrderChange={this.handleFinalOrderItem}
+                    handleDialog={this.handleDialog}
+                    /> : null}
                 </div>
             </React.Fragment>
         );

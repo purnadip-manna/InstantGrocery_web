@@ -12,7 +12,7 @@ function App() {
         <SideBar />
         <div id="page-content-wrapper">
           <Navbar />
-          <Banner shopName="ABCD Shop" />
+          <Banner shopName="Grocery Store" />
           <MainArea />
           <Footer />
         </div>

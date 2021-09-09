@@ -19,22 +19,18 @@ class ShowOrders extends Component {
         return (
             <React.Fragment>
                 <div className='row'>
-                    <div className='col-sm-10 mr-0 pr-0 pl-0 mt-1 mb-1 ml-0'>
-                        <div className={this.loadOrderDetailView()}>
-                            <OrderList
-                                showDetails={this.changeState}
-                            />
-                        </div>
+                    <div className={this.loadOrderDetailView()}>
+                        <OrderList
+                            showDetails={this.changeState}
+                        />
                     </div>
 
-                    <div className='col-sm-2 mr-0 pr-0 pl-0 mt-1 mb-1 ml-0'>
-                        <div id={this.showOrderView()} className="col-sm-3 mr-0 pr-0 ml-0 pl-0 mt-1 mb-1">
-                            <OrderDetail
-                                hideDetails={this.changeState}
-                            />
-                        </div>
+                    <div id={this.showOrderView()} className="col-sm-3 mr-0 pr-0 ml-0 pl-0 mt-1 mb-1">
+                        <OrderDetail
+                            hideDetails={this.changeState}
+                        />
                     </div>
-                </div >
+                </div>
             </React.Fragment >
         );
     }
@@ -44,12 +40,10 @@ class ShowOrders extends Component {
     }
 
     loadOrderDetailView() {
-        console.log("state.isShown: " + this.state.isShown);
         return this.state.isShown ? "col-sm-9 mr-0 pr-0 ml-0 pl-0 mt-1 mb-1" : "col-sm-12 mr-0 pr-2 ml-0 pl-0 mt-1 mb-1";
     }
 
     showOrderView() {
-        console.log("state.isShown: " + this.state.isShown);
         return this.state.isShown ? "text" : "hidden";
     }
 }

@@ -17,41 +17,17 @@ class AddOrders extends Component {
                     columnsCustomer : [
                         {
                             name: "Items",
-                            options: {
-                              hint: "?",
-                              customBodyRender: val => {
-                                let parentStyle = {
-                                  position: "absolute",
-                                  top: 0,
-                                  right: "1px",
-                                  bottom: 0,
-                                  left: "2px",
-                                  boxSizing: "border-box",
-                                  display: "block",
-                                  width: "100%"
-                                };
-                                let cellStyle = {
-                                  boxSizing: "border-box",
-                                  overflow: "hidden",
-                                  textOverflow: "ellipsis",
-                                  whiteSpace: "nowrap"
-                                };
-                                return (
-                                  <div style={{ position: "relative", height: "20px" }}>
-                                    <div style={parentStyle}>
-                                      <div style={cellStyle}>{val}</div>
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            },
-                            
                         },
                         {
                             name: "Value",
                             options: {
                                 sort: true,
-                                hint: "?",
+                            }
+                        },
+                        {
+                            name: "Quantity",
+                            options: {
+                                sort: true,
                             }
                         },
                         {
@@ -64,6 +40,16 @@ class AddOrders extends Component {
                                   </Button>
                             }
                         },
+                        {
+                            name: "Action",
+                            options: {
+                              empty: true,
+                              customBodyRender: (value, tableMeta, updateValue) =>
+                                  <Button variant="outlined" color="primary" >
+                                    {`Edit`}
+                                  </Button>
+                            }
+                        },
                     ],modalShow:false};
         this.LeftmarginSet=this.LeftmarginSet.bind(this);
         this.RightMarginSet=this.RightMarginSet.bind(this);
@@ -72,19 +58,12 @@ class AddOrders extends Component {
         this.handleFinalOrderItem=this.handleFinalOrderItem.bind(this);
         this.handleDialog=this.handleDialog.bind(this);
         this.timeOutId = null;
-
-        // this.handleClickedOutside=this.handleClickedOutside.bind(this);
+ 
         this.onBlurHandler = this.onBlurHandler.bind(this);
-        this.onFocusHandler = this.onFocusHandler.bind(this);
-        // this.toogleContainer=React.createRef();
+        this.onFocusHandler = this.onFocusHandler.bind(this); 
 
     }
-    // componentDidMount(){
-    //     window.addEventListener("click",this.handleClickedOutside);
-    // }
-    // componentWillUnmount(){
-    //     window.removeEventListener("click",this.handleClickedOutside);
-    // }
+    
     
     LeftmarginSet(val){
         this.setState({leftMargin:val})
@@ -100,21 +79,32 @@ class AddOrders extends Component {
     }
 
     PrintData(ev,val,rowData){
-        console.log(rowData);
+        // console.log(rowData);
         this.setState({rowData:rowData});
-        const orderdItem=[rowData[0],rowData[1]]
+        // const orderdItem=[rowData[0],rowData[1]]
+        // this.state.orderedItems.push(orderdItem);
+        // this.state.addedItems=true;
+        // if(this.state.addedItems==true){
+        //     this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
+        // }
+        this.state.modalShow=true;
+    }
+
+    handleFinalOrderItem(val){
+        // console.log(val);
+        const amount=val[0];
+        const quantity=val[1];
+        
+        const orderdItem=[this.state.rowData[0],quantity,amount];
         this.state.orderedItems.push(orderdItem);
         this.state.addedItems=true;
         if(this.state.addedItems==true){
             this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
         }
-        this.state.modalShow=true;
-    }
-
-    handleFinalOrderItem(val){
         this.setState({rowData:this.state.rowData.push(val)});
         this.setState({modalShow:false});
-        console.log(this.state.rowData);
+        
+        this.state.modalShow=true;
     }
 
 
@@ -207,14 +197,14 @@ class AddOrders extends Component {
             filter: false,
             filterType: "dropdown",
             selectableRows: "none",
+            responsive: 'vertical',
             draggableColumns: {
                 enabled: true
             },
-            responsive: "standard",
+            responsive: 'vertical',
             print:false,
-            responsive: "scroll",
             // selectableRows: true,
-            selectableRows: "none",
+            // selectableRows: "none",
         }
         
         

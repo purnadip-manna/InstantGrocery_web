@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core'; 
 import Button from "@material-ui/core/Button";
 import ModalOrder from './orderModal';
-
-
+import ModalEditOrder from './EditModalOrder';
+import FinalCheckOut from './finalCheckOutModal';
 
 class AddOrders extends Component {
     
@@ -41,16 +41,16 @@ class AddOrders extends Component {
                             }
                         },
                         {
-                            name: "Action",
+                            name: "Action1",
                             options: {
                               empty: true,
                               customBodyRender: (value, tableMeta, updateValue) =>
-                                  <Button variant="outlined" color="primary" >
+                                  <Button variant="outlined" color="primary" onClick={(e)=>this.onEdithandle(e,tableMeta.rowIndex,tableMeta.rowData)}>
                                     {`Edit`}
                                   </Button>
                             }
                         },
-                    ],modalShow:false};
+                    ],modalShow:false,editDialog:false,editRowData:{},selectedRow:0,finalCheckOut:false};
         this.LeftmarginSet=this.LeftmarginSet.bind(this);
         this.RightMarginSet=this.RightMarginSet.bind(this);
         this.PrintData=this.PrintData.bind(this);
@@ -58,10 +58,17 @@ class AddOrders extends Component {
         this.handleFinalOrderItem=this.handleFinalOrderItem.bind(this);
         this.handleDialog=this.handleDialog.bind(this);
         this.timeOutId = null;
- 
+        this.editTimeOutId=null;
+
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this); 
+        this.onEdithandle=this.onEdithandle.bind(this);
+        this.handleEditDialog=this.handleEditDialog.bind(this);
+        this.onFinalOrderEditChange=this.onFinalOrderEditChange.bind(this);
 
+        this.cancelOrder=this.cancelOrder.bind(this);
+        this.handleCheckOut=this.handleCheckOut.bind(this);
+        this.handleFinalOrder=this.handleFinalOrder.bind(this);
     }
     
     
@@ -77,16 +84,14 @@ class AddOrders extends Component {
             modalShow : !currState.modalShow
         }))
     }
+    handleEditDialog(){
+        this.setState({editDialog:!this.state.editDialog})
+    }
 
     PrintData(ev,val,rowData){
         // console.log(rowData);
         this.setState({rowData:rowData});
-        // const orderdItem=[rowData[0],rowData[1]]
-        // this.state.orderedItems.push(orderdItem);
-        // this.state.addedItems=true;
-        // if(this.state.addedItems==true){
-        //     this.state.customerColums=this.state.columnsCustomer.map(obj=> obj);
-        // }
+        
         this.state.modalShow=true;
     }
 
@@ -104,7 +109,21 @@ class AddOrders extends Component {
         this.setState({rowData:this.state.rowData.push(val)});
         this.setState({modalShow:false});
         
-        this.state.modalShow=true;
+    }
+
+    onFinalOrderEditChange(value){
+        const am=value[1];
+        const qua=value[2];
+
+        const orderdItem=[value[0],qua,am];
+        const newOrderObj=this.state.orderedItems;
+        newOrderObj[this.state.selectedRow]=orderdItem;
+
+        this.setState({orderedItems:newOrderObj})
+
+       
+
+        this.setState({editDialog:false});
     }
 
 
@@ -114,24 +133,48 @@ class AddOrders extends Component {
         // console.log(rowIndex);
     }
 
+    onEdithandle(ev,rowIndex,RowData){
+        console.log("edit is happening at row: "+rowIndex);
+        this.setState({selectedRow:rowIndex});
+        this.setState({editDialog:true});
+        this.setState({editRowData:RowData})
+        
+    }
+
     //after opening the dialog if we clicked out side we have to set the modalShow to false
     onBlurHandler() {    
         this.timeOutId = setTimeout(() => {   
-            this.setState({ modalShow: false 
-                 }); 
+            this.setState({ modalShow: false
+                 });
         }); 
     }
     //when we clicked the button we add a timeOut
     onFocusHandler() {    
         clearTimeout(this.timeOutId);  
+        // clearTimeout(this.editTimeOutId);
+    }
+
+    cancelOrder(ev){
+        alert("all Orders will be deleted");
+        this.setState({orderedItems:[]});
+        // this.setState({finalCheckOut:!this.state.finalCheckOut})
+    }
+
+    handleCheckOut(){
+        this.setState({finalCheckOut:!this.state.finalCheckOut});
+    }
+
+
+    handleFinalOrder(){
+        this.setState({orderedItems:[]})
+        this.setState({finalCheckOut:false});
     }
 
     render() { 
         const columns = [
             {
                 name: "Items",
-                options: {
-                  hint: "?",
+                options: { 
                   customBodyRender: val => {
                     let parentStyle = {
                       position: "absolute",
@@ -143,16 +186,10 @@ class AddOrders extends Component {
                       display: "block",
                       width: "100%"
                     };
-                    let cellStyle = {
-                      boxSizing: "border-box",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap"
-                    };
                     return (
                       <div style={{ position: "relative", height: "20px" }}>
                         <div style={parentStyle}>
-                          <div style={cellStyle}>{val}</div>
+                          <div>{val}</div>
                         </div>
                       </div>
                     );
@@ -162,8 +199,7 @@ class AddOrders extends Component {
             {
                 name: "Value",
                 options: {
-                    sort: true,
-                    hint: "?",
+                    sort: true, 
                 }
             },
             {
@@ -178,7 +214,6 @@ class AddOrders extends Component {
             }
         ];
 
-        
         const options = {
             filter: true,
             filterType: "dropdown",
@@ -188,25 +223,20 @@ class AddOrders extends Component {
             },
             responsive: "standard",
             print:false,
-            responsive: "scroll",
-            // selectableRows: true,
+            responsive: "scroll", 
             selectableRows: "none",
-            };
+        };
 
         const optionsCustomer={
             filter: false,
             filterType: "dropdown",
             selectableRows: "none",
-            responsive: 'vertical',
             draggableColumns: {
                 enabled: true
             },
-            responsive: 'vertical',
-            print:false,
-            // selectableRows: true,
-            // selectableRows: "none",
+            responsive: "scroll",
+            print:false, 
         }
-        
         
         return(
             <React.Fragment>
@@ -219,27 +249,9 @@ class AddOrders extends Component {
                     <hr />
                     <div className="row pt-2 mt-1 ml-0 pl-0 mr-0 pr-0">
                         <div className="col-sm-1 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
-                            <div className="col-sm-4 col-md-4 ml-0 pl-0 mr-1 pr-0">
-                            <React.Fragment>
-                                    <div className="ml-3 pl-4">
-                                        <FormControl>
-                                            <TextField
-                                                label="Left Margin"
-                                                type="number"
-                                                value={this.state.leftMargin}
-                                                onChange={e => this.LeftmarginSet(e.target.value)}
-                                            />
-                                        </FormControl>
-                                        <FormControl>
-                                            <TextField
-                                                label="Right Margin"
-                                                type="number"
-                                                value={this.state.rightMargin}
-                                                onChange={e => this.RightMarginSet(e.target.value)}
-                                            />
-                                        </FormControl>
-                                    </div>
-                                    <div style={{ marginLeft: this.state.leftMargin + "px" , marginRight: this.state.rightMargin + "px" }}>
+                        <div className="col-sm-4 col-md-4 offset-sm-1 offset-md-1 ml-0 pl-0 mr-1 pr-0 pb-2 mb-1">
+                                <React.Fragment>
+                                    <div style={{ marginLeft: 10 + "px" , marginRight: 10 + "px" }}>
                                         <MUIDataTable
                                             title={"Mudidar Data"}
                                             data={rows}
@@ -249,44 +261,56 @@ class AddOrders extends Component {
                                     </div>
                                 </React.Fragment>
                             </div>
-                        <div className="col-sm-2 col-md-2 ml-0 pl-0 mr-1 pr-0"></div>
-                        <div className="col-sm-4 col-md-4 ml-0 pl-0 mr-1 pr-0">
-                            <React.Fragment>
-                                <div className="ml-3 pl-4">
-                                    <FormControl>
-                                        <TextField
-                                            label="Left Margin"
-                                            type="number"
-                                            value={this.state.leftMargin}
-                                            onChange={e => this.LeftmarginSet(e.target.value)}
-                                        />
-                                    </FormControl>
-                                    <FormControl>
-                                        <TextField
-                                            label="Right Margin"
-                                            type="number"
-                                            value={this.state.rightMargin}
-                                            onChange={e => this.RightMarginSet(e.target.value)}
-                                        />
-                                    </FormControl>
+                        <div className="col-sm-2 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
+                        <div className="col-sm-4 col-md-4 offset-sm-2 offset-md-2 ml-0 pl-0 mr-1 pr-0">
+                            <div className="row ml-0 mr-0 pl-0 pr-0" style={{width:"100%"},{maxWidth:"100%"}}>
+                                <div className="col-sm-12 col-md-12 ml-1 pl-0 mr-1 pr-0 mt-3 pt-2 pl-0 ml-1">
+                                    <React.Fragment>
+                                        <div style={{ marginLeft: 10 + "px" , marginRight: 10 + "px" }}>
+                                            <MUIDataTable
+                                                title={"Ordered Data"}
+                                                data={this.state.orderedItems}
+                                                options={optionsCustomer}
+                                                columns={this.state.customerColums}
+                                            />
+                                        </div>
+                                    </React.Fragment>
                                 </div>
-                                <div style={{ marginLeft: this.state.leftMargin + "px" , marginRight: this.state.rightMargin + "px" }}>
-                                    <MUIDataTable
-                                        title={"Ordered Data"}
-                                        data={this.state.orderedItems}
-                                        options={optionsCustomer}
-                                        columns={this.state.customerColums}
-                                    />
-                                </div>
-                            </React.Fragment>
+                            </div>
+                            <div className="row mt-1 pt-3 mb-1 pb-1 pl-0 pr-0 ml-1 mr-1">
+                                <Button variant="contained" color="secondary" size="medium" onClick={this.cancelOrder}>
+                                    Cancel Order
+                                </Button>
+                                <Button className="ml-1 pl-3" variant="contained" color="primary" size="medium" onClick={this.handleCheckOut}>
+                                    CheckOut
+                                </Button>
+                            </div>
                         </div>
                         <div className="col-sm-1 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
                     </div>
                 </div>
                 
-                <div ref={this.toogleContainer}
+
+                
+                <div 
+                onBlur={this.onFocusHandler}          
+                onFocus={this.onBlurHandler}>
+
+                    {this.state.editDialog ? 
+                    <ModalEditOrder
+                    openEv={this.state.editDialog}
+                    eventName={'edit'}
+                    orderData={this.state.editRowData}
+                    onFinalOrderEditChange={this.onFinalOrderEditChange}
+                    handleDialog={this.handleEditDialog}
+                    /> : null}
+
+                </div>
+
+                <div 
                 onBlur={this.onBlurHandler}          
                 onFocus={this.onFocusHandler}>
+
                     {this.state.modalShow ?
                     <ModalOrder
                     openEv={this.state.modalShow}
@@ -295,6 +319,19 @@ class AddOrders extends Component {
                     handleDialog={this.handleDialog}
                     /> : null}
                 </div>
+
+                <div 
+                onBlur={this.onBlurHandler}          
+                onFocus={this.onFocusHandler}>
+
+                    {this.state.finalCheckOut ?
+                    <FinalCheckOut
+                    openEv={this.state.finalCheckOut}
+                    finalOrderedItems={this.state.orderedItems}
+                    handleCheckOut={this.handleFinalOrder}
+                    /> : null}
+                </div>
+
             </React.Fragment>
         );
     }

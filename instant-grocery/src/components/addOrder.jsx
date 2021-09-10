@@ -235,6 +235,7 @@ class AddOrders extends Component {
             },
             responsive: "scroll",
             print:false, 
+            
         }
         
         return(

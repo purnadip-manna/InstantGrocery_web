@@ -33,13 +33,13 @@ class OrderDetail extends Component {
                 />
                 <div className="modal-footer">
                 <a href="#" style={{textDecoration: "none"}}>
-                <Button variant="outlined" color="secondary" size="medium">
+                <Button variant="contained" color="secondary" size="medium">
                     {`Cancel`}
                 </Button>
                 </a>
                 &nbsp;
                 <a href="#" style={{textDecoration: "none"}}>
-                <Button variant="outlined" color="primary" size="medium">
+                <Button variant="contained" color="primary" size="medium">
                     {`Confirm`}
                 </Button>
                 </a>

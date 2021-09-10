@@ -58,35 +58,27 @@ class FinalCheckOut extends React.Component {
                             <DialogContent>
                             <DialogContentText>
                                 <Paper elevation={5}>
-                                    <div className="row">
-                                        <div className="col-sm-12 p-0 m-0">
-                                            {this.props.finalOrderedItems.map((element,index)=>
-                                                <div className="row ml-1 mr-0 pl-0 pr-0 pt-1 mt-0 mb-0 pb-0">
-                                                    <List>
-                                                        <ListItem>
-                                                            <div className="col-sm-4 col-md-4 mr-1 pr-3 mt-1 mb-1 pt-0 pb-1 ml-0 pl-0">
-                                                                
-                                                                <ListItemText  primary={this.props.finalOrderedItems[index][0]} />
-                                                                &nbsp;
-                                                            </div>
-                                                            <div className="col-sm-4 col-md-4 mr-1 pr-1 mt-1 mb-1 pt-0 pb-1 ml-1 pl-2">
-                                                                
-                                                            <ListItemText style={{textAlign:"center"}} primary={ this.props.finalOrderedItems[index][2] }/>
-                                                            &nbsp;
-                                                            </div>
-                                                            <div className="col-sm-4 col-md-4 mr-1 pr-1 mt-1 mb-1 pt-0 pb-1 ml-2 pl-0">
-                                                                
-                                                                <ListItemText primary={"₹"+this.props.finalOrderedItems[index][1]} />
-                                                                &nbsp;
-                                                            </div>
-                                                        </ListItem>
-                                                    </List>
-                                                </div>
-                                                 
-                                            )}
-                                        </div>
-                                    </div>
-                                    
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Items</th>
+                                                <th scope="col">Amt</th>
+                                                <th scope="col">Unit</th>
+                                                <th scope="col">Rs(₹)</th>
+                                            </tr>
+                                        </thead>
+                                    {this.props.finalOrderedItems.map((element,index)=>                                        
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">{this.props.finalOrderedItems[index][0]}</th>
+                                                <td>{ this.props.finalOrderedItems[index][2] }</td>
+                                                <td>Kg</td>
+                                                <td>{this.props.finalOrderedItems[index][1]}</td>
+                                            </tr>
+                                        </tbody>
+                                            
+                                    )}   
+                                    </table>                                 
                                 </Paper> 
                             </DialogContentText>
                             <br/>

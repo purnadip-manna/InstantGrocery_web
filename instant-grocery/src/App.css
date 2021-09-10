@@ -234,3 +234,11 @@
 .orderBill-panel:target {
   display: block;
 }
+
+.MuiDialog-paperWidthSm {
+  width: 25rem;
+}
+
+.MuiDialogContent-root {
+  padding: 0px 5px !important;
+}

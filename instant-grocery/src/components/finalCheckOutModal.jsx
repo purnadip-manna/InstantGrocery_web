@@ -61,28 +61,13 @@ class FinalCheckOut extends React.Component {
                                     {this.props.finalOrderedItems.map((element,index)=>
                                         <List>
                                             <ListItem>
-                                                <ListItemAvatar>
-                                                <Avatar>
-                                                    <LocalMallIcon />
-                                                </Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText primary="Item" secondary={this.props.finalOrderedItems[index][0]} />
-                                            {/* </ListItem>
-                                            <ListItem>
-                                                <ListItemAvatar>
-                                                <Avatar>
-                                                    <PaymentIcon />
-                                                </Avatar>
-                                                </ListItemAvatar> */}
-                                                <ListItemText primary="TotalCost" secondary={this.props.finalOrderedItems[index][1]} />
-                                            {/* </ListItem>
-                                            <ListItem>
-                                                <ListItemAvatar>
-                                                <Avatar>
-                                                    <PaymentIcon />
-                                                </Avatar>
-                                                </ListItemAvatar> */}
-                                                <ListItemText primary="Selected Amonut" secondary={ this.props.finalOrderedItems[index][2] }/>
+                                                <ListItemText primary={this.props.finalOrderedItems[index][0]} />
+                                                &nbsp;&nbsp;&nbsp; 
+                                                <ListItemText primary={ this.props.finalOrderedItems[index][2] }/>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <ListItemText secondary="₹"/>
+                                                <ListItemText primary={this.props.finalOrderedItems[index][1]} />
+                                                &nbsp;&nbsp;&nbsp;
                                             </ListItem>
                                         </List> 
                                     )}

@@ -35,13 +35,13 @@ class FinalCheckOut extends React.Component {
 
     handleSubmit(event){
         this.setState({open:false});
-        this.props.handleCheckOut();
+        this.props.handleCheck();
     }
 
     handleClose(ev){
         // console.log(this.props.finalOrderedItems[0][0]);
-        this.props.handleCheckOut();
         this.setState({open:false});
+        this.props.onCancel();
     }
 
     
@@ -52,35 +52,51 @@ class FinalCheckOut extends React.Component {
                     <Dialog open={this.state.open} onClose={this.handleClose}  aria-labelledby="form-dialog-title">
                             <DialogTitle id="form-dialog-title">
                                     <Typography gutterBottom variant="h4" align="center">
-                                        Edit Orders
+                                        Final Orders List
                                     </Typography>
                             </DialogTitle>
                             <DialogContent>
                             <DialogContentText>
                                 <Paper elevation={5}>
-                                    {this.props.finalOrderedItems.map((element,index)=>
-                                        <List>
-                                            <ListItem>
-                                                <ListItemText primary={this.props.finalOrderedItems[index][0]} />
-                                                &nbsp;&nbsp;&nbsp; 
-                                                <ListItemText primary={ this.props.finalOrderedItems[index][2] }/>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <ListItemText secondary="₹"/>
-                                                <ListItemText primary={this.props.finalOrderedItems[index][1]} />
-                                                &nbsp;&nbsp;&nbsp;
-                                            </ListItem>
-                                        </List> 
-                                    )}
+                                    <div className="row">
+                                        <div className="col-sm-12 p-0 m-0">
+                                            {this.props.finalOrderedItems.map((element,index)=>
+                                                <div className="row ml-1 mr-0 pl-0 pr-0 pt-1 mt-0 mb-0 pb-0">
+                                                    <List>
+                                                        <ListItem>
+                                                            <div className="col-sm-4 col-md-4 mr-1 pr-3 mt-1 mb-1 pt-0 pb-1 ml-0 pl-0">
+                                                                
+                                                                <ListItemText  primary={this.props.finalOrderedItems[index][0]} />
+                                                                &nbsp;
+                                                            </div>
+                                                            <div className="col-sm-4 col-md-4 mr-1 pr-1 mt-1 mb-1 pt-0 pb-1 ml-1 pl-2">
+                                                                
+                                                            <ListItemText style={{textAlign:"center"}} primary={ this.props.finalOrderedItems[index][2] }/>
+                                                            &nbsp;
+                                                            </div>
+                                                            <div className="col-sm-4 col-md-4 mr-1 pr-1 mt-1 mb-1 pt-0 pb-1 ml-2 pl-0">
+                                                                
+                                                                <ListItemText primary={"₹"+this.props.finalOrderedItems[index][1]} />
+                                                                &nbsp;
+                                                            </div>
+                                                        </ListItem>
+                                                    </List>
+                                                </div>
+                                                 
+                                            )}
+                                        </div>
+                                    </div>
+                                    
                                 </Paper> 
                             </DialogContentText>
                             <br/>
                             <Divider variant="middle" />
                             </DialogContent>
                             <DialogActions>
-                            <Button onClick={this.handleClose} color="warning">
+                            <Button variant="outlined" onClick={this.handleClose} color="warning" size="medium">
                                 Cancel
                             </Button>
-                            <Button onClick={this.handleSubmit} color="primary">
+                            <Button variant="outlined" onClick={this.handleSubmit} color="primary" size="medium">
                                 Confirm
                             </Button>
                             </DialogActions>

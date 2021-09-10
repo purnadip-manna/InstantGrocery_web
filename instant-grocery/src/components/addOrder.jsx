@@ -157,7 +157,6 @@ class AddOrders extends Component {
     cancelOrder(ev){
         alert("all Orders will be deleted");
         this.setState({orderedItems:[]});
-        // this.setState({finalCheckOut:!this.state.finalCheckOut})
     }
 
     handleCheckOut(){
@@ -320,15 +319,14 @@ class AddOrders extends Component {
                     /> : null}
                 </div>
 
-                <div 
-                onBlur={this.onBlurHandler}          
-                onFocus={this.onFocusHandler}>
+                <div >
 
                     {this.state.finalCheckOut ?
                     <FinalCheckOut
                     openEv={this.state.finalCheckOut}
                     finalOrderedItems={this.state.orderedItems}
-                    handleCheckOut={this.handleFinalOrder}
+                    handleCheck={this.handleFinalOrder}
+                    onCancel={this.handleCheckOut}
                     /> : null}
                 </div>
 

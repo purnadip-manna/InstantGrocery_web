@@ -1,95 +1,53 @@
 import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
+import { Button } from '@material-ui/core';
+import OrderSampleData from '../jsonTableData/orderSample';
 
 class OrderDetail extends Component {
     constructor(props) {
         super(props);
         this.columns = [
-            { name: "Items" },
+            { name: "item_name" },
+            { name: "quantity" },
+            { name: "unit" },
+            { name: "price" }
         ];
 
-        this.data = [
-            ["ANmzcFWsUx"],
-            ["JjzxYghjAc"],
-            ["ocuGMnBLqJ"],
-            ["fndvibjtUz"],
-            ["kNAkOhVhQw"],
-            ["xHsXpaqukF"],
-            ["agCwbzdtYs"],
-            ["clFkXzJpCo"],
-            ["JVxWsKMCip"],
-            ["gkNZDpUdIT"],
-            ["TuFjDRpUso"],
-            ["AebgZViYhB"],
-            ["vYZmTVpVzK"],
-            ["GooqYRBtYl"],
-            ["CTPYwRDwpP"],
-            ["YKEOBUbvWr"],
-            ["ZJAhyCtFoM"],
-            ["MLNpIEwAEG"],
-            ["kpLRYBypRQ"],
-            ["cYJyxUxguA"],
-            ["LSqYfdzMyq"],
-            ["ZyOepXWrmG"],
-            ["OodvGyJCZZ"],
-            ["PMyKakVjLH"],
-            ["WHapAUYnWB"],
-            ["PlZBpFQBpz"],
-            ["BfbEUdrsXt"],
-            ["EMEdAfjmGc"],
-            ["ijXSaPRJmy"],
-            ["ZqIaCPXIuC"],
-            ["PRYyZbSoup"],
-            ["kvMrvfHuss"],
-            ["cCyVLwGoju"],
-            ["rlEdaUtGRw"],
-            ["WnhboBqYvD"],
-            ["jTMONYDiaF"],
-            ["syfIMddlab"],
-            ["WjfyiPSdLT"],
-            ["YhgaIFznsx"],
-            ["SNjjlXsKkt"],
-            ["dmDKbBimZr"],
-            ["tSEEyspgKw"],
-            ["jbgpWdDIVp"],
-            ["BZxVFTcVjJ"],
-            ["uCtlSLzWDY"],
-            ["YpxajlMeaK"],
-            ["dymRXvEwBV"],
-            ["jMxGArNesh"],
-            ["dAzGcbSXvX"],
-            ["pIlNAPBHbl"]
-        ];
+        this.data = OrderSampleData;
 
         this.options = {
             filterType: 'checkbox',
         };
-
-        this.collapseDetailWindow = this.collapseDetailWindow.bind(this);
     }
 
     render() {
         return (
             <React.Fragment>
-                <div className="conatiner-fluid">
-                    <div className="ml-1 mb-2 pl-2">
-                    </div>
-                    <MUIDataTable className="m-2 p-2"
-                        title={"Order Details"}
-                        columns={this.columns}
-                        data={this.data}
-                        options={this.options}
-                    />
-                    <div>
-                        <button id="confirm-order" className="btn btn-success" onClick={this.collapseDetailWindow}>Confirm Order</button>
-                    </div>
+            <div className='orderBill-panel show-menu' id="1">
+                <div className='col-12 p-0'>
+                <MUIDataTable
+                title={"Order Details"}
+                columns={this.columns}
+                data={this.data}
+                options={this.options}
+                />
+                <div className="modal-footer">
+                <a href="#" style={{textDecoration: "none"}}>
+                <Button variant="outlined" color="secondary" size="medium">
+                    {`Cancel`}
+                </Button>
+                </a>
+                &nbsp;
+                <a href="#" style={{textDecoration: "none"}}>
+                <Button variant="outlined" color="primary" size="medium">
+                    {`Confirm`}
+                </Button>
+                </a>
                 </div>
+                </div>
+            </div>
             </React.Fragment >
         );
-    }
-
-    collapseDetailWindow() {
-        this.props.hideDetails(false);
     }
 }
 

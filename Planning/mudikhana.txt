@@ -50,9 +50,11 @@ Log Table:
 		order_detail(JSON)
 			[
 				{
-					"item_id":abcd,
+					"item_id":1,
+					"item_name":abcd,
 					"quantity":12,
-					"unit":(kg/Gm/Lt/amount_unit)
+					"unit":(kg/Gm/Lt/amount_unit),
+					"price" : 10
 				}
 			]
 		order_status

@@ -153,3 +153,84 @@
 	-webkit-box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
 	box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
 }
+
+.orderBill-panel.show-menu {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .orderBill-panel {
+      width: 100% !important;
+  }
+}
+
+.orderBill-panel {
+  width: 600px;
+}
+
+.filter-panel,
+.orderBill-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  background: #FFF;
+  box-shadow: 0 2px 20px 0 rgba(218, 218, 218, .7);
+  z-index: 1111;
+  opacity: 0;
+  transform: scale(0, 1);
+  transform-origin: 100% 0;
+  transition: all .5s ease-in-out;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.orderBill-panel .close-button {
+  position: absolute;
+  top: 30px;
+  right: 25px;
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid #707070;
+}
+
+.orderBill {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #FFF;
+  box-shadow: 0 0 10px 0 rgb(0, 0, 0);
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.orderBill {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-right: auto;
+  margin-left: auto;
+  background: #FFF;
+  padding: 5px;
+  box-shadow: 0 0 10px 0 rgba(218, 218, 218, .5);
+}
+
+.orderBill-panel {
+  display: none;
+}
+
+.orderBill-panel:target {
+  display: block;
+}

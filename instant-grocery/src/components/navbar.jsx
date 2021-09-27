@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import MainArea from './mainArea';
 import UserProfile from './userProfile';
 import Home from './home';
@@ -36,10 +37,8 @@ class Navbar extends Component {
             <Router>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div className="container-fluid">
-                        <button className="btn btn-outline-info" id="sidebarToggle"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-text-indent-left" viewBox="0 0 16 16">
-                        <path d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8 2.646 6.354a.5.5 0 0 1 0-.708zM7 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg> 
+                        <button className="btn" id="sidebarToggle"> 
+                            <ArrowForwardIos/>
                         </button>
                         <div className="dropdown">
                         <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

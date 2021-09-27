@@ -1,11 +1,12 @@
 import './App.css';
-import MainArea from './components/mainArea';
-
+import Footer from './components/footer';
+import Navbar from './components/navbar';
 
 function App() {
   return (
     <div className="App">
-      <MainArea/>
+      <Navbar/>
+      <Footer />
     </div>
   );
 }

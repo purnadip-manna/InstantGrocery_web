@@ -5,10 +5,10 @@ import OrderList from './order_list';
 class ShowOrders extends Component {
     render() {
         return (
-            <React.Fragment>
+            <div className="container-fluid">
                 <OrderList/>
                 <OrderDetail/>
-            </React.Fragment>
+            </div>
         );
     }
 }

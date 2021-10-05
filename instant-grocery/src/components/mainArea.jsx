@@ -9,6 +9,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import RefillItems from './refillItems';
 
 const routes = [
 {
@@ -26,6 +27,11 @@ const routes = [
     path: "/dashboard/pantry",
     sidebar: () => <div>shoelaces!</div>,
     main: () => <PantryDetails/>
+},
+{
+    path:"/dashboard/refill",
+    sidebar:()=><div></div>,
+    main : ()=><RefillItems/>
 }
 ];
 

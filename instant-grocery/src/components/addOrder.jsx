@@ -289,9 +289,7 @@ class AddOrders extends Component {
                         <div className="col-sm-1 col-md-1 ml-0 pl-0 mr-1 pr-0"></div>
                     </div>
                 </div>
-                
-
-                
+                  
                 <div 
                 onBlur={this.onFocusHandler}          
                 onFocus={this.onBlurHandler}>

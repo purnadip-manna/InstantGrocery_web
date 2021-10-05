@@ -105,12 +105,26 @@
 
 #wrapper {
     overflow-x: hidden;
+    margin-top: 61px;
   }
   
   #sidebar-wrapper {
     min-height: 100vh;
     margin-left: -15rem;
     transition: margin 0.25s ease-out;
+    height: 100%;
+    position: fixed;
+    z-index: 1032;
+    top: 61px;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    -webkit-box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
+    box-shadow: 5px 20px 20px 4px rgba(0,0,0,0.11);
+
   }
   
   #sidebar-wrapper .sidebar-heading {

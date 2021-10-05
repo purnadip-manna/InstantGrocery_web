@@ -35,11 +35,12 @@ class Navbar extends Component {
     render() { 
         return (
             <Router>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
                     <div className="container-fluid">
                         <button className="btn" id="sidebarToggle"> 
                             <ArrowForwardIos/>
                         </button>
+                        <span className="h5">Instant Grocery</span>
                         <div className="dropdown">
                         <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="https://www.pngitem.com/pimgs/m/78-786293_1240-x-1240-0-avatar-profile-icon-png.png" height="30" width="30"></img>

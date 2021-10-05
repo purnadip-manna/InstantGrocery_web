@@ -35,7 +35,6 @@ class MainArea extends Component {
             <Router>
                 <div className="d-flex" id="wrapper">
                     <div className="border-end bg-white" id="sidebar-wrapper">
-                    <div className="sidebar-heading border-bottom bg-light">Instant Grocery</div>
                     <div className="list-group list-group-flush">
                         <p className="list-group-item" align="center">
                         <img src="https://i.pinimg.com/originals/5d/26/a1/5d26a173f443cbd190e34481438d474b.png" width="100"/>

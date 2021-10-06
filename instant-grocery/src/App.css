@@ -373,3 +373,24 @@ mark {
 .dark-color {
   color: #20247b;
 }
+
+
+/* refill Section MUIDataTable */
+.MUIDataTableHeadCell-data-50.MUIDataTableHeadCell-dragCursor-52 {
+  text-align: center;
+}
+.MUIDataTable-tableRoot-4 {
+  background-color: #fad7d7;
+  outline: none;
+}
+.MuiTableRow-root {
+  background-color: aliceblue;
+  color: antiquewhite;
+  display: table-row;
+  outline: 0;
+  vertical-align: middle;
+}
+.MUIDataTable-responsiveScroll-6 {
+  max-height:none !important;
+  overflow: auto;
+}

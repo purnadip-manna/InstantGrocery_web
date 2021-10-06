@@ -35,10 +35,13 @@ class RefillItems extends React.Component {
                     name: "amount",
                     options: {
                         sort: true,
+                        customBodyRender:(value,tableMeta,updateValue)=> 
+                            <TextField id="standard-basic" variant="standard" defaultValue={value} 
+                            onChange={(event)=>this.onChangeHandle(event,tableMeta.rowIndex,tableMeta.rowData)}/>
                     }
                 },
                 {
-                    name: "Action1",
+                    name: "Refill",
                     options: {
                       empty: true,
                       customBodyRender: (value, tableMeta, updateValue) =>
@@ -47,12 +50,21 @@ class RefillItems extends React.Component {
                           </Button>
                     }
                 },
-            ]
+            ],
+            allItems:itemDetails
         }
         this.onClickhandle=this.onClickhandle.bind(this);
+        this.onChangeHandle=this.onChangeHandle.bind(this);
     }
     onClickhandle(sEv,rowIndex,rowData){
-        alert((sEv,rowIndex,rowData));
+        alert((rowIndex,rowData));
+    }
+    onChangeHandle(synEv,rowIndex,rwoMetaData){
+        var newAmount=synEv.target.value;
+        console.log(newAmount);
+        var changedAmount=this.state.allItems;
+        changedAmount[rowIndex].amount=newAmount;
+        this.setState({allItems:changedAmount});
     }
     render() {
         const options = {
@@ -79,7 +91,7 @@ class RefillItems extends React.Component {
                     <br></br>
                     <div style={{ marginLeft: this.state.leftMargin + "px" , marginRight: this.state.rightMargin + "px" }}>
                         <MUIDataTable
-                            data={itemDetails}
+                            data={this.state.allItems}
                             options={options}
                             columns={this.state.refillHeader}
                         />

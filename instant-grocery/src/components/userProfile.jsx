@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 
 class UserProfile extends Component {
+    componentDidMount() {
+        document.getElementById("sidebarToggle").style.display = "none";
+        document.getElementById("appTitle").style.marginLeft = "auto";
+        document.getElementById("appTitle").style.marginRight = "auto";
+    }
+    componentWillUnmount(){
+        document.getElementById("sidebarToggle").style.display = "block";
+    }
     render() { 
         return (
             <div className="container-fluid">

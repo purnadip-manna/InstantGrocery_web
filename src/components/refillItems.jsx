@@ -7,8 +7,21 @@ import ModalOrder from './orderModal';
 import ModalEditOrder from './EditModalOrder';
 import FinalCheckOut from './finalCheckOutModal';
 import itemDetails from '../jsonTableData/refillItemData';
+import RefillModal from './refillModal';
 
-
+const customButtonStyle={
+    backgroundColor: "#4CAF50",
+    border: "none",
+    color: "white",
+    padding: "15px 32px",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "inline-block",
+    fontSize: "16px",
+    margin: "4px 2px",
+    cursor: "pointer",
+    borderRadius:"15px"
+}
 class RefillItems extends React.Component {
     constructor(props){
         super(props);
@@ -51,13 +64,27 @@ class RefillItems extends React.Component {
                     }
                 },
             ],
-            allItems:itemDetails
+            allItems:itemDetails,
+            openRefillDialogue:false,
+            currentRefilItemDets:{}
         }
         this.onClickhandle=this.onClickhandle.bind(this);
         this.onChangeHandle=this.onChangeHandle.bind(this);
+        this.onBlurHandler=this.onBlurHandler.bind(this);
+        this.onFocusHandler=this.onFocusHandler.bind(this);
+        this.onCancelRefill=this.onCancelRefill.bind(this);
+        this.onSubmitRefill=this.onSubmitRefill.bind(this);
+
+
     }
     onClickhandle(sEv,rowIndex,rowData){
-        alert((rowIndex,rowData));
+        this.setState({
+            openRefillDialogue:true
+        })
+        this.setState({
+            currentRefilItemDets:itemDetails[rowIndex]
+        })
+        // alert((rowIndex,rowData));
     }
     onChangeHandle(synEv,rowIndex,rwoMetaData){
         var newAmount=synEv.target.value;
@@ -66,6 +93,32 @@ class RefillItems extends React.Component {
         changedAmount[rowIndex].amount=newAmount;
         this.setState({allItems:changedAmount});
     }
+    onCancelRefill(){
+        this.setState({
+            openRefillDialogue:!this.state.openRefillDialogue
+        })
+    }
+
+    // handle the final submitted data from refill modal (or) dialogue
+    onSubmitRefill(){
+        this.setState({
+            openRefillDialogue:!this.state.openRefillDialogue
+        });
+        alert("succfully changed the data");
+    }
+
+    // handle the click outside of the dialogue
+    onBlurHandler() {    
+        this.timeOutId = setTimeout(() => {   
+            this.setState({ openRefillDialogue: ! this.state.openRefillDialogue
+                 });
+        }); 
+    }
+    onFocusHandler() {    
+        clearTimeout(this.timeOutId);  
+    }
+
+
     render() {
         const options = {
             filter: true,
@@ -89,6 +142,12 @@ class RefillItems extends React.Component {
                     </span>
                     <br></br>
                     <br></br>
+                    <span style={{ marginLeft:"5px" }}>
+                        <button class="button" style={customButtonStyle}>
+                            Add Item
+                        </button>
+                    </span>
+                    <br></br>
                     <div style={{ marginLeft: this.state.leftMargin + "px" , marginRight: this.state.rightMargin + "px" }}>
                         <MUIDataTable
                             data={this.state.allItems}
@@ -96,6 +155,19 @@ class RefillItems extends React.Component {
                             columns={this.state.refillHeader}
                         />
                     </div>
+
+                    <div
+                    onFocus={this.onFocusHandler}          
+                    onBlur={this.onBlurHandler}>
+                        {this.state.openRefillDialogue ?
+                        <RefillModal
+                        open={this.state.openRefillDialogue}
+                        onCancelRefill={this.onCancelRefill}
+                        onSubmitRefill={this.onSubmitRefill}
+                        itemData={this.state.currentRefilItemDets}
+                        /> : null}
+                    </div>
+
                 </div>
             </React.Fragment>
         );

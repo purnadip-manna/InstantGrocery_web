@@ -394,3 +394,9 @@ mark {
   max-height:none !important;
   overflow: auto;
 }
+
+.cat{
+  padding: 5px;
+  margin: 5px;
+  font-size: 1rem;
+}

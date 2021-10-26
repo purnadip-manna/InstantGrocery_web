@@ -26,6 +26,8 @@
 
         // Toggle the side navigation
         const sidebarToggle = document.body.querySelector('#sidebarToggle');
+        const pageContentWrapper = document.body.querySelector('#page-content-wrapper');
+        const firstSetBool = localStorage.getItem('sb|sidebar-toggle');
         if (sidebarToggle) {
              if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
                  document.body.classList.toggle('sb-sidenav-toggled');
@@ -34,6 +36,14 @@
                 event.preventDefault();
                 document.body.classList.toggle('sb-sidenav-toggled');
                 localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            });
+            pageContentWrapper.addEventListener('click', event => {
+              console.log(firstSetBool);
+                if(localStorage.getItem('sb|sidebar-toggle') === firstSetBool){
+                  event.preventDefault();
+                  document.body.classList.toggle('sb-sidenav-toggled');
+                  localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                }
             });
         }
 

@@ -1,8 +1,0 @@
-// Item Sell Log
-{
-	"_id": 1,
-	"item_id": 1,
-	"quantity": "35",
-	"unit": "K",
-	"date": "29/08/2021"
-}

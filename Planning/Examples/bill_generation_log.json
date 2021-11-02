@@ -1,8 +1,0 @@
-// Bill Generation Log
-{
-	"bill_id": 1,
-	"order_id": 2,
-	"path": "/path/to/google/drive/folder",
-	"generation_time": "10:00:12",
-	"date": "29/08/2021"
-}
